@@ -12,7 +12,7 @@ Write-Host "Refreshing environment variables..." -ForegroundColor Cyan
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
 
-Start-Job -ScriptBlock {
+$pyJob | Start-Job -ScriptBlock {
     python3 -m venv .venv
     .\venv\Scripts\Activate.ps1
 
@@ -29,7 +29,7 @@ Start-Job -ScriptBlock {
 
 Pop-Location
 
-Start-Job{
+$nodeJob | Start-Job{
     Push-Location $targetPath
 
     Write-Host "Installing Node.js frontend dependencies..." -ForegroundColor Cyan
@@ -38,5 +38,8 @@ Start-Job{
     Write-Host "`nLaunching Luma angular application on http://localhost:4200/" -ForegroundColor Green
     Start-Job -ScriptBlock{npm start}
 }
+
+$nodeJob | Wait-Job | Receive-Job
+$pyJob | Wait-Job | Receive-Job
 
 Pop-Location
