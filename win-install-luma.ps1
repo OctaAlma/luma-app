@@ -3,7 +3,17 @@ winget install --id Python.Python.3 --silent --accept-source-agreements --accept
 $targetPath = Join-Path -Path $PSScriptRoot -ChildPath "backend"
 Push-Location $targetPath
 
+Write-Host "Starting Node.js installation via WinGet..." -ForegroundColor Cyan
+winget install --id OpenJS.NodeJS.LTS -e --silent --accept-source-agreements --accept-package-agreements
+$targetPath = Join-Path -Path $PSScriptRoot -ChildPath "frontend"
+
+# Force PowerShell to refresh the PATH environment variable
+Write-Host "Refreshing environment variables..." -ForegroundColor Cyan
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
+
 Start-Job -ScriptBlock {
+    python3 -m venv .venv
     .\venv\Scripts\Activate.ps1
 
     Write-Host "Installing Python backend dependencies..." -ForegroundColor Cyan
@@ -16,18 +26,17 @@ Start-Job -ScriptBlock {
     Write-Host "`nLaunching Django server on http://localhost:8000/" -ForegroundColor Green
     python .\manage.py runserver
 }
+
 Pop-Location
 
+Start-Job{
+    Push-Location $targetPath
 
-Write-Host "Starting Node.js installation via WinGet..." -ForegroundColor Cyan
-winget install --id OpenJS.NodeJS.LTS -e --silent --accept-source-agreements --accept-package-agreements
-$targetPath = Join-Path -Path $PSScriptRoot -ChildPath "frontend"
-Push-Location $targetPath
+    Write-Host "Installing Node.js frontend dependencies..." -ForegroundColor Cyan
+    npm install
 
-Write-Host "Installing Node.js frontend dependencies..." -ForegroundColor Cyan
-npm install
-
-Write-Host "`nLaunching Luma angular application on http://localhost:4200/" -ForegroundColor Green
-Start-Job -ScriptBlock{npm start}
+    Write-Host "`nLaunching Luma angular application on http://localhost:4200/" -ForegroundColor Green
+    Start-Job -ScriptBlock{npm start}
+}
 
 Pop-Location
