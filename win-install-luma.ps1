@@ -69,6 +69,7 @@ Start-Process powershell `
         "-NoExit",
         "-Command",
 @"
+npx ng analytics disable
 npm install
 
 npm run start
