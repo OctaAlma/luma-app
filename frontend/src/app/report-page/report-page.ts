@@ -26,15 +26,13 @@ export class ReportPage {
   ngOnInit(): void {
     // load students from the database or API
     this.studentApi.getAllStudents().subscribe(students => {
-      this.students.set(students)
+      this.students.set(students.sort((a, b) => {
+        if (a.firstName.localeCompare(b.firstName) !== 0) {
+          return a.firstName.localeCompare(b.firstName);
+        }
+        return a.lastName.localeCompare(b.lastName);
+      }))
     });
-    
-    this.students.set(sample_students.sort((a, b) => {
-      if (a.firstName.localeCompare(b.firstName) !== 0) {
-        return a.firstName.localeCompare(b.firstName);
-      }
-      return a.lastName.localeCompare(b.lastName);
-    }));
   }
 
   public onStudentChange(event: any){

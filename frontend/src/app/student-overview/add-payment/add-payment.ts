@@ -72,7 +72,17 @@ export class AddPayment implements OnInit{
       postDate: new Date()
     });
 
+    console.log(this.currPayment());
+
     // post the current payment object to the database
     this.paymentSaved.emit(this.currPayment());
+
+    // Reset the form as it may be called later
+    this.currPayment.update(curr => ({
+      ...curr,
+      student: this.studentId()
+    }));
+
+    this.startDate.set(toDateInputString(new Date()));
   }
 }
