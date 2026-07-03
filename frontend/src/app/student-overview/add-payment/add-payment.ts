@@ -68,6 +68,7 @@ export class AddPayment implements OnInit{
     // set the startDate to match our date string
     this.currPayment.set({
       ...this.currPayment(),
+      monthlyPrice: Math.round(this.currPayment().monthlyPrice * 100) / 100,
       startDate: dateStringToLocalDate(this.startDate()),
       postDate: new Date()
     });

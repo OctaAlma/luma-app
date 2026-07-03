@@ -79,6 +79,7 @@ export class EditPayment {
   public updatePayment(){
     this.currPayment.set({
       ...this.currPayment(),
+      monthlyPrice: Math.round(this.currPayment().monthlyPrice * 100) / 100,
       startDate: dateStringToLocalDate(this.startDate())
     });
 
