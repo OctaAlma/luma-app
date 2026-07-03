@@ -1,45 +1,80 @@
-Write-Host "Starting Python3 installation via WinGet..." -ForegroundColor Cyan
-winget install --id Python.Python.3 --silent --accept-source-agreements --accept-package-agreements
-$targetPath = Join-Path -Path $PSScriptRoot -ChildPath "backend"
-Push-Location $targetPath
+# ---------------------------------------
+# Install prerequisites
+# ---------------------------------------
 
-Write-Host "Starting Node.js installation via WinGet..." -ForegroundColor Cyan
-winget install --id OpenJS.NodeJS.LTS -e --silent --accept-source-agreements --accept-package-agreements
-$targetPath = Join-Path -Path $PSScriptRoot -ChildPath "frontend"
+Write-Host "Updating WinGet sources..." -ForegroundColor Cyan
+winget source update
+winget source reset --force
 
-# Force PowerShell to refresh the PATH environment variable
-Write-Host "Refreshing environment variables..." -ForegroundColor Cyan
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+Write-Host "Installing Python 3.12..." -ForegroundColor Cyan
+winget install --id Python.Python.3.12 `
+    --silent `
+    --accept-source-agreements `
+    --accept-package-agreements
 
+Write-Host "Installing Node.js LTS..." -ForegroundColor Cyan
+winget install --id OpenJS.NodeJS.LTS -e `
+    --silent `
+    --accept-source-agreements `
+    --accept-package-agreements
 
-$pyJob | Start-Job -ScriptBlock {
-    python3 -m venv .venv
-    .\venv\Scripts\Activate.ps1
+# Refresh PATH for this PowerShell session
+$env:Path = (
+    [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
+    [Environment]::GetEnvironmentVariable("Path", "User")
+)
 
-    Write-Host "Installing Python backend dependencies..." -ForegroundColor Cyan
-    pip install -r requirements.txt
+# ---------------------------------------
+# Paths
+# ---------------------------------------
 
-    Write-Host "Checking for pending database migrations..." -ForegroundColor Yellow
-    python .\manage.py makemigrations
-    python .\manage.py migrate
+$Backend = Join-Path $PSScriptRoot "backend"
+$Frontend = Join-Path $PSScriptRoot "frontend"
 
-    Write-Host "`nLaunching Django server on http://localhost:8000/" -ForegroundColor Green
-    python .\manage.py runserver
-}
+# ---------------------------------------
+# Backend
+# ---------------------------------------
 
-Pop-Location
+Write-Host "Starting Django backend..." -ForegroundColor Green
 
-$nodeJob | Start-Job{
-    Push-Location $targetPath
+Start-Process powershell `
+    -WorkingDirectory $Backend `
+    -ArgumentList @(
+        "-NoExit",
+        "-Command",
+@"
+python -m venv .venv
 
-    Write-Host "Installing Node.js frontend dependencies..." -ForegroundColor Cyan
-    npm install
+& .\.venv\Scripts\Activate.ps1
 
-    Write-Host "`nLaunching Luma angular application on http://localhost:4200/" -ForegroundColor Green
-    Start-Job -ScriptBlock{npm start}
-}
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 
-$nodeJob | Wait-Job | Receive-Job
-$pyJob | Wait-Job | Receive-Job
+python manage.py makemigrations
+python manage.py migrate
 
-Pop-Location
+python manage.py runserver
+"@
+    )
+
+# ---------------------------------------
+# Frontend
+# ---------------------------------------
+
+Write-Host "Starting Angular frontend..." -ForegroundColor Green
+
+Start-Process powershell `
+    -WorkingDirectory $Frontend `
+    -ArgumentList @(
+        "-NoExit",
+        "-Command",
+@"
+npm install
+
+npm run start
+"@
+    )
+
+Write-Host ""
+Write-Host "Backend:  http://localhost:8000" -ForegroundColor Yellow
+Write-Host "Frontend: http://localhost:4200" -ForegroundColor Yellow
