@@ -26,7 +26,7 @@ export class ReportPage {
   ngOnInit(): void {
     // load students from the database or API
     this.studentApi.getAllStudents().subscribe(students => {
-      this.students.set(this.students().sort((a, b) => {
+      this.students.set(students.sort((a, b) => {
         if (a.firstName.localeCompare(b.firstName) !== 0) {
           return a.firstName.localeCompare(b.firstName);
         }
