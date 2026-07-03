@@ -1,6 +1,6 @@
 <div class="title-cont">
 
-    <h5>Student Management</h5>
+    <h5>Administración de alumnos</h5>
 
     <div class="btn-group btn-group-sm" role="group" aria-label="Manage student button group">
         <button 
@@ -8,14 +8,14 @@
             data-bs-toggle="modal" 
             data-bs-target='#addStudentModal'
         >
-            Add student
+            Agregar alumno
         </button>
         <button
             class="btn btn-secondary"
             data-bs-toggle="collapse"
             data-bs-target=".accordion-collapse"
         >
-            Collapse    
+            Colapsar
         </button>
     </div>
 </div>
@@ -57,7 +57,7 @@
                 [class]="{ 'show': $index == 0, 'collapse': $index !== 0 }"
             >
                 <div class="accordion-body">
-                    <h6>{{`${student.firstName}'s payments`}}</h6>
+                    <h6>{{`Pagos de ${student.firstName}`}}</h6>
                     <hr class="my-0">
                     <app-payment-table 
                         [studentPayments]="student.payments"
@@ -67,26 +67,26 @@
                     >
                     </app-payment-table>
                     
-                    <h6>{{`${student.firstName}'s information`}}</h6>
+                    <h6>{{`Información de ${student.firstName}`}}</h6>
                     <hr class="mt-0">
 
                     <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text" [attr.id]="'basic-label-first-name-' + student.id">Name</span>                            
+                        <span class="input-group-text" [attr.id]="'basic-label-first-name-' + student.id">Nombre completo</span>                            
                         <input type="text" [attr.id]="'input-first-name-' + student.id" class="form-control" [attr.value]="student.firstName" [attr.aria-label]="student.firstName" aria-describedby="basic-label">
                         <input type="text" [attr.id]="'input-last-name-' + student.id" class="form-control" [attr.value]="student.lastName" [attr.aria-label]="student.lastName" aria-describedby="basic-label">
-                        <button (click)="updateName(student.id)" class="btn btn-primary" type="button" [attr.id]="'button-addon' + student.id">Update</button>
+                        <button (click)="updateName(student.id)" class="btn btn-primary" type="button" [attr.id]="'button-addon' + student.id">Actualizar</button>
                     </div>
 
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" [attr.id]="'basic-label-email-' + student.id">Email</span>                            
                         <input type="text" [attr.id]="'input-email-' + student.id" class="form-control" [attr.value]="student.email" [attr.aria-label]="student.email" aria-describedby="basic-label">
-                        <button (click)="updateEmail(student.id)" class="btn btn-primary" type="button" [attr.id]="'button-addon' + student.id">Update</button>
+                        <button (click)="updateEmail(student.id)" class="btn btn-primary" type="button" [attr.id]="'button-addon' + student.id">Actualizar</button>
                     </div>
 
                     <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text" [attr.id]="'basic-label-phone-' + student.id">Phone</span>                            
+                        <span class="input-group-text" [attr.id]="'basic-label-phone-' + student.id">Teléfono</span>                            
                         <input type="text" [attr.id]="'input-phone-' + student.id" class="form-control" [attr.value]="student.phone" [attr.aria-label]="student.phone" aria-describedby="basic-label">
-                        <button (click)="updatePhone(student.id)" class="btn btn-primary" type="button" [attr.id]="'button-addon' + student.id">Update</button>
+                        <button (click)="updatePhone(student.id)" class="btn btn-primary" type="button" [attr.id]="'button-addon' + student.id">Actualizar</button>
                     </div>
                     
                     <app-add-payment 
@@ -111,7 +111,7 @@
                             data-bs-toggle="modal"
                             [attr.data-bs-target]="`#remove-student-modal-${student.id}`"
                         >
-                            Remove student
+                            Eliminar alumno
                         </button>
                     </div>
                 </div>

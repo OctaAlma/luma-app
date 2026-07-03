@@ -2,10 +2,10 @@
     <thead class="table-light">
         <tr>
             <th>Total</th>
-            <th>Monthly price</th>
-            <th>Duration</th>
-            <th>Start date</th>
-            <th>Manage</th>
+            <th>Precio mensual</th>
+            <th>Duración de inscripción</th>
+            <th>Fecha de inicio</th>
+            <th>Administrar</th>
         </tr>
     </thead>
     <tbody>
@@ -14,10 +14,10 @@
                 <td>{{payment.monthlyPrice * payment.duration | currency }}</td>
                 <td>{{payment.monthlyPrice | currency }}</td>
                 @if (payment.duration === 1) {
-                    <td>{{payment.duration}} month</td>
+                    <td>{{payment.duration}} mes</td>
                 }
                 @else{
-                    <td>{{payment.duration}} months</td>
+                    <td>{{payment.duration}} meses</td>
                 }
                 <td>{{payment.startDate | date: 'MMM dd, yyyy'}}</td>
                 
@@ -30,7 +30,7 @@
                             data-bs-toggle="dropdown" 
                             aria-expanded="false"
                         >
-                            Options
+                            Opciones
                         </button>
                         <ul class="dropdown-menu">
                             <li 
@@ -39,14 +39,14 @@
                                 [attr.data-bs-target]="`#editPaymentModal${payment.id}`"
                                 data-bs-toggle="modal"
                             >
-                                Edit
+                                Editar
                             </li>
                             <li 
                                 class="dropdown-item" 
                                 style="color: red; cursor: pointer;"
                                 (click)="deletePayment(payment.id)"
                             >
-                                Delete
+                                Borrar
                             </li>
                         </ul>
                     </div>
@@ -62,7 +62,7 @@
                     [attr.data-bs-target]="'#addPaymentModal' + studentId()"
                     type="button" 
                     class="add-payment-btn btn btn-sm btn-outline-success w-100 h-100 rounded-0 border-0 py-3">
-                    Add payment
+                    Agregar pago
                 </button>
             </td>
         </tr>

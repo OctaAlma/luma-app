@@ -8,17 +8,17 @@
 }
 
 
-<h5>Manage Packages</h5>
+<h5>Administrar paquetes</h5>
 <hr class="mt-0 mb-2 border-2 border-top border-secondary" />
 
 <table class="table table-bordered table-sm mt-3">
     <thead class="table-light">
         <tr>
-            <th>Package name</th>
-            <th>Duration</th>
-            <th>Monthly price</th>
-            <th>Total price</th>
-            <th>Manage</th>
+            <th>Nombre del paquete</th>
+            <th>Duración de inscripción</th>
+            <th>Precio mensual</th>
+            <th>Precio total</th>
+            <th>Administrar</th>
         </tr>
     </thead>
     <tbody>
@@ -27,10 +27,10 @@
             <tr>
                 <td>{{subscription.planName}}</td>
                 @if(subscription.duration == 1){
-                    <td>{{subscription.duration}} month</td>
+                    <td>{{subscription.duration}} mes</td>
                 }
                 @else{
-                    <td>{{subscription.duration}} months</td>
+                    <td>{{subscription.duration}} meses</td>
                 }
                 <td>{{subscription.monthlyPrice | currency}}</td>
                 <td>{{subscription.monthlyPrice * subscription.duration | currency}}</td>
@@ -44,7 +44,7 @@
                             data-bs-toggle="dropdown" 
                             aria-expanded="false"
                         >
-                            Options
+                            Opciones
                         </button>
                         <ul class="dropdown-menu">
                             <li 
@@ -52,14 +52,14 @@
                                 data-bs-toggle="modal" 
                                 [attr.data-bs-target]="`#editPackageModal${subscription.id}`"
                             >
-                                Edit
+                                Editar
                             </li>
                             <li 
                                 class="dropdown-item" 
                                 style="color: red"
                                 (click)="deletePackage(subscription.id)"
                             >
-                                Delete
+                                Borrar
                             </li>
                         </ul>
                     </div>
@@ -74,7 +74,7 @@
                     data-bs-target='#addPackageModal'
                     type="button" 
                     class="add-payment-btn btn btn-sm btn-outline-success w-100 h-100 rounded-0 border-0 py-2">
-                    Add package
+                    Agregar paquete
                 </button>
             </td>
         </tr>

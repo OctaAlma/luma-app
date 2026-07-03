@@ -2,12 +2,12 @@
     <div class="col-sm-6 mb-3 mb-sm-0">
         <div class="card">
             <div class="card-header">
-                Income this past year
+                Ingresos durante el último año
             </div>
 
             <div class="card-body">
                 <h4 [style.color]="yearlyIncome() < 500 ? '#dc3545' : '#198754'"><b>{{yearlyIncome() | currency:'USD'}}</b></h4>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Income since {{oneYearAgo | date: 'MMM dd, yyyy' : '-0600'}}</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Ingresos desde {{oneYearAgo | date: 'MMM dd, yyyy'}}</h6>
             </div>
         </div>
     </div>
@@ -15,12 +15,12 @@
     <div class="col-sm-6 mb-3 mb-sm-0">
         <div class="card">
             <div class="card-header">
-                Total income
+                Ingresos totales
             </div>
 
             <div class="card-body">
                 <h4 [style.color]="totalIncome() < 500 ? '#dc3545' : '#198754'"><b>{{totalIncome() | currency:'USD'}}</b></h4>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Income since {{firstPaymentDate | date: 'MMM dd, yyyy'}}</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Ingresos desde {{firstPaymentDate | date: 'MMM dd, yyyy'}}</h6>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
 <br>
 
 <div class="input-group mb-3">
-  <span class="input-group-text" id="basic-addon1">Start date</span>
+  <span class="input-group-text" id="basic-addon1">Fecha de inicio</span>
   <input 
     type="date" 
     class="form-control"
@@ -37,7 +37,7 @@
     (input)="startDate.set($event.target.value)"
   >
 
-  <span class="input-group-text" id="basic-addon1">End date</span>
+  <span class="input-group-text" id="basic-addon1">Fecha límite</span>
   <input 
     type="date" 
     class="form-control"
@@ -50,16 +50,16 @@
     <div class="col-sm-6 mb-3 mb-sm-0">
         <div class="card">
             <div class="card-header">
-                Enrollments for range
+                Inscripciones dentro del rango
             </div>
 
             <div class="card-body">
                 <h4 [style.color]="enrollmentBetweenDates() == 0 ? '#dc3545' : '#198754'"><b>{{enrollmentBetweenDates()}} 
                     @if(enrollmentBetweenDates() == 1){
-                        student
+                        alumno
                     }
                     @else{
-                        students
+                        alumnos
                     }
                 </b></h4>
             </div>
@@ -69,7 +69,7 @@
     <div class="col-sm-6 mb-3 mb-sm-0">
         <div class="card">
             <div class="card-header">
-                Income for range
+                Ingresos dentro del rango
             </div>
 
             <div class="card-body">

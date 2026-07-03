@@ -7,23 +7,23 @@
 >
     <div class="modal-dialog">
         <div class="modal-content">
-            <h4 class="modal-header"><b>Add a new student</b></h4>
+            <h4 class="modal-header"><b>Agregar un alumno nuevo</b></h4>
             <div class="modal-body">
                 <form>
                     <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text" [attr.id]="'basic-label-name'">Full name</span>                            
-                        <input [formField]="studentForm.firstName" type="text" class="form-control" placeholder="Enter first name">
-                        <input [formField]="studentForm.lastName" type="text" class="form-control" placeholder="Enter last name">
+                        <span class="input-group-text" [attr.id]="'basic-label-name'">Nombre completo</span>                            
+                        <input [formField]="studentForm.firstName" type="text" class="form-control" placeholder="Ingresa el nombre">
+                        <input [formField]="studentForm.lastName" type="text" class="form-control" placeholder="Ingresa el apellido">
                     </div>
 
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" [attr.id]="'basic-label-email'">Email</span>                            
-                        <input [formField]="studentForm.email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input [formField]="studentForm.email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Ingresa el correo electronico">
                     </div>
 
                     <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text" [attr.id]="'basic-label-phone'">Phone</span>                            
-                        <input [formField]="studentForm.phone" type="tel" class="form-control" id="inputPhone" aria-describedby="emailHelp" placeholder="Enter phone number">
+                        <span class="input-group-text" [attr.id]="'basic-label-phone'">Teléfono</span>                            
+                        <input [formField]="studentForm.phone" type="tel" class="form-control" id="inputPhone" aria-describedby="emailHelp" placeholder="Ingresa el número de teléfono">
                     </div>
                 </form>
             </div>

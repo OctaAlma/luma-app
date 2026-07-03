@@ -10,7 +10,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" [attr.id]="'add-payment-modal-label-' + studentId" >
-                    Add a new payment for {{studentName()}}
+                    Añadir un pago nuevo para {{studentName()}}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -20,10 +20,10 @@
                 <table class="table table-bordered">
                     <thead class="table-light">
                         <tr style="text-align: center;">
-                            <th>Package</th>
-                            <th>Duration</th>
-                            <th>Monthly price</th>
-                            <th>Total price</th>
+                            <th>Paquete</th>
+                            <th>Duración de inscripción</th>
+                            <th>Precio mensual</th>
+                            <th>Precio total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,7 +44,7 @@
 
                 <form>
                     <div class="input-group mb-3">
-                        <span class="input-group-text" [attr.id]="'basic-label-start-date'">Start date</span>                            
+                        <span class="input-group-text" [attr.id]="'basic-label-start-date'">Fecha de inicio</span>                            
                         <input 
                             type="date"
                             class="form-control"
@@ -52,17 +52,17 @@
                             (input)="startDate.set(($event.target).value)"
                         >
                         
-                        <span class="input-group-text" [attr.id]="'basic-label-duration'">Number of months</span>
+                        <span class="input-group-text" [attr.id]="'basic-label-duration'">Meses de inscripción</span>
                         <input [formField]="paymentForm.duration" type="number" class="form-control">                        
                     </div>
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text" [attr.id]="'basic-label-duration'">Price per month ($)</span>
+                        <span class="input-group-text" [attr.id]="'basic-label-duration'">Precio mensual ($)</span>
                         <input [formField]="paymentForm.monthlyPrice" type="number" class="form-control">
                     </div>
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text" [attr.id]="'basic-label-end-date'">End date</span>
+                        <span class="input-group-text" [attr.id]="'basic-label-end-date'">Fecha límite</span>
                         <span class="input-group-text">{{endDate() | date: 'MMM dd, yyyy' : '-0600'}}</span>
 
                         <span class="input-group-text" [attr.id]="'basic-label-total'"><b>Total</b></span>
@@ -71,8 +71,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                <button (click)="savePayment()" data-bs-dismiss="modal" class="btn btn-outline-success">Save payment</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button (click)="savePayment()" data-bs-dismiss="modal" class="btn btn-outline-success">Guardar pago</button>
             </div>  
         </div>
     </div>

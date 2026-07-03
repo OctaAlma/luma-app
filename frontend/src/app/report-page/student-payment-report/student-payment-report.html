@@ -1,5 +1,5 @@
 <div class="input-group mb-3">
-  <span class="input-group-text" id="basic-addon1">Start date</span>
+  <span class="input-group-text" id="basic-addon1">Fecha de inicio</span>
   <input 
     type="date" 
     class="form-control"
@@ -7,7 +7,7 @@
     (input)="startDate.set($event.target.value)"
   >
 
-  <span class="input-group-text" id="basic-addon1">End date</span>
+  <span class="input-group-text" id="basic-addon1">Fecha límite</span>
   <input 
     type="date" 
     class="form-control"
@@ -19,10 +19,10 @@
 <table class="table table-bordered table-sm">
   <thead class="table-light">
     <tr>
-      <th scope="col">Transaction date</th>
-      <th scope="col">Amount</th>
-      <th scope="col">Duration</th>
-      <th scope="col">Running total</th>
+      <th scope="col">Fecha de la transacción</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Duración de inscripción</th>
+      <th scope="col">Total acumulado</th>
     </tr>
   </thead>
   <tbody>
@@ -31,10 +31,10 @@
       <td>{{payment.postDate | date: 'short' }}</td>
       <td>{{payment.monthlyPrice * payment.duration | currency }}</td>
       @if (payment.duration === 1) {
-        <td>{{payment.duration}} month</td>
+        <td>{{payment.duration}} mes</td>
       }
       @else{
-        <td>{{payment.duration}} months</td>
+        <td>{{payment.duration}} meses</td>
       }
       <td>{{runningTotals().at($index) | currency}}</td>
     </tr>  
