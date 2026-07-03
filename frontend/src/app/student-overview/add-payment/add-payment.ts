@@ -74,5 +74,7 @@ export class AddPayment implements OnInit{
 
     // post the current payment object to the database
     this.paymentSaved.emit(this.currPayment());
+
+    this.currPayment.set(default_payment);
   }
 }

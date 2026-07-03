@@ -33,5 +33,7 @@ export class AddStudent implements OnInit{
 
     // if everything looks good
     this.newStudent.emit(this.currStudent());
+
+    this.currStudent.set(default_student);
   }
 }
