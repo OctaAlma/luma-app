@@ -1,0 +1,21 @@
+<div 
+    class="modal modal-sm fade" 
+    [id]="modalId()"
+    tabindex="-1"     
+    aria-labelledby='remove-student-modal-label' 
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h4 class="modal-header"><b>Remove student</b></h4>
+            <div class="modal-body mb-0 py-0">
+                <p>Are you sure you want to remove {{`${student().firstName} ${student().lastName}`}}?</p>
+                <p style="font-size: small; color: #dc3545">This action cannot be undone</p>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button (click)="removeStudent(student().id)" data-bs-dismiss="modal" class="btn btn-sm btn-outline-danger">Remove student</button>
+                </div>
+            </div>
+    </div>
+</div>

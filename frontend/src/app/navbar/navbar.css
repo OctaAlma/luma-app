@@ -1,0 +1,25 @@
+.navbar {
+  background: #040650 !important;
+}
+
+.navbar-brand{
+    color: white;
+    font-weight: 400;
+}
+
+.nav-link {
+  color: lightgrey;
+  font-weight: 300;
+}
+
+.nav-link:hover, .nav-link.active{
+  color: white;
+  font-weight: 300;
+}
+
+
+.container-fluid{
+    width: 1200px;
+    justify-content: flex-start;
+    gap: 1em
+}

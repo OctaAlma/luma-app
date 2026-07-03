@@ -1,0 +1,54 @@
+
+<div 
+    class="modal fade" 
+    tabindex="-1" 
+    id="addPackageModal"
+    aria-labelledby='add-package-modal-label' 
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h4 class="modal-header"><b>Add a new package</b></h4>
+            <div class="modal-body">
+                <form>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-name'">Package name</span>                            
+                        <input [formField]="packageForm.planName" type="text" class="form-control" placeholder="Enter package name">
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-total-price'">Total price ($)</span>                            
+                        <input 
+                            [formField]="packageForm.totalPrice"
+                            type="number" 
+                            class="form-control" 
+                            id="inputTotalPrice" 
+                            aria-describedby="totalPriceHelp" 
+                            placeholder="Enter total price"
+                        >
+
+                        <span class="input-group-text" [attr.id]="'basic-label-duration'">Duration (months)</span>                            
+                        <input 
+                            [formField]="packageForm.duration" 
+                            type="number" 
+                            class="form-control" 
+                            id="inputDuration" 
+                            aria-describedby="durationHelp" 
+                            placeholder="Enter package duration"
+                        >
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-monthly-price'">Monthly price</span>
+                        <span class="input-group-text" [attr.id]="'monthly-price'">{{monthlyPrice() | currency}}</span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button (click)="addPackage()" data-bs-dismiss="modal" class="btn btn-sm btn-outline-success">Add package</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="title-cont">
+
+    <h5>Student Management</h5>
+
+    <div class="btn-group btn-group-sm" role="group" aria-label="Manage student button group">
+        <button 
+            class="btn btn-success"
+            data-bs-toggle="modal" 
+            data-bs-target='#addStudentModal'
+        >
+            Add student
+        </button>
+        <button
+            class="btn btn-secondary"
+            data-bs-toggle="collapse"
+            data-bs-target=".accordion-collapse"
+        >
+            Collapse    
+        </button>
+    </div>
+</div>
+
+<hr class="mt-0 mb-1 border-2 border-top border-secondary" />
+
+<app-add-student (newStudent)="handleAddStudent($event)"></app-add-student>
+
+@for (student of sortedStudents(); track $index) {
+    <app-remove-student 
+        [modalId]="`remove-student-modal-${student.id}`" 
+        [student]="student" 
+        (removeStudentEmitter)="handleRemoveStudent($event)"
+    >
+    </app-remove-student>
+}
+
+<div class="accordion" id="studentAccordion">
+    @for (student of sortedStudents(); track $index) {
+        
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button 
+                    class="accordion-button py-2 px-3 fs-6" 
+                    [class]="{ 'collapsed': $index !== 0 }"
+                    [attr.aria-expanded]="$index == 0"
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    [attr.data-bs-target]="'#collapse-' + student.id" 
+                    [attr.aria-controls]="'collapse-' + student.id"
+                >
+                    <span>{{student.firstName + ' ' + student.lastName}}</span>
+                </button>
+            </h2>
+
+            <div 
+                [attr.id]="'collapse-' + student.id" 
+                class="accordion-collapse" 
+                [class]="{ 'show': $index == 0, 'collapse': $index !== 0 }"
+            >
+                <div class="accordion-body">
+                    <h6>{{`${student.firstName}'s payments`}}</h6>
+                    <hr class="my-0">
+                    <app-payment-table 
+                        [studentPayments]="student.payments"
+                        [studentId]="student.id"
+                        [studentName]="`${student.firstName} ${student.lastName}`"
+                        (paymentDeleted)="handleDeletePayment($event)";
+                    >
+                    </app-payment-table>
+                    
+                    <h6>{{`${student.firstName}'s information`}}</h6>
+                    <hr class="mt-0">
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-first-name-' + student.id">Name</span>                            
+                        <input type="text" [attr.id]="'input-first-name-' + student.id" class="form-control" [attr.value]="student.firstName" [attr.aria-label]="student.firstName" aria-describedby="basic-label">
+                        <input type="text" [attr.id]="'input-last-name-' + student.id" class="form-control" [attr.value]="student.lastName" [attr.aria-label]="student.lastName" aria-describedby="basic-label">
+                        <button (click)="updateName(student.id)" class="btn btn-primary" type="button" [attr.id]="'button-addon' + student.id">Update</button>
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-email-' + student.id">Email</span>                            
+                        <input type="text" [attr.id]="'input-email-' + student.id" class="form-control" [attr.value]="student.email" [attr.aria-label]="student.email" aria-describedby="basic-label">
+                        <button (click)="updateEmail(student.id)" class="btn btn-primary" type="button" [attr.id]="'button-addon' + student.id">Update</button>
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-phone-' + student.id">Phone</span>                            
+                        <input type="text" [attr.id]="'input-phone-' + student.id" class="form-control" [attr.value]="student.phone" [attr.aria-label]="student.phone" aria-describedby="basic-label">
+                        <button (click)="updatePhone(student.id)" class="btn btn-primary" type="button" [attr.id]="'button-addon' + student.id">Update</button>
+                    </div>
+                    
+                    <app-add-payment 
+                        [studentId]="student.id" 
+                        [studentName]="`${student.firstName} ${student.lastName}`"
+                        (paymentSaved)="handleAddPayment($event, student.id)"
+                    >
+                    </app-add-payment>
+
+                    @for (payment of student.payments; track payment.id) {
+                        <app-edit-payment 
+                            [studentId]="student.id"
+                            [studentName]="`${student.firstName} ${student.lastName}`"
+                            [existingPayment]="payment"
+                            (paymentUpdated)="handleUpdatePayment($event)"
+                        ></app-edit-payment>
+                    }
+                    
+                    <div style="text-align: center;">
+                        <button
+                            class="btn btn-sm btn-danger mt-0"
+                            data-bs-toggle="modal"
+                            [attr.data-bs-target]="`#remove-student-modal-${student.id}`"
+                        >
+                            Remove student
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <br><br>
+</div>

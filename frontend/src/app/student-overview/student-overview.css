@@ -1,0 +1,11 @@
+.btn-group{
+    padding-bottom: 0.5em;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.title-cont{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}

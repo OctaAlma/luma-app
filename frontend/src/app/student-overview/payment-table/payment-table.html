@@ -1,0 +1,70 @@
+<table class="table table-bordered table-sm mt-3">
+    <thead class="table-light">
+        <tr>
+            <th>Total</th>
+            <th>Monthly price</th>
+            <th>Duration</th>
+            <th>Start date</th>
+            <th>Manage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (payment of studentPayments(); track payment.id) {
+            <tr>
+                <td>{{payment.monthlyPrice * payment.duration | currency }}</td>
+                <td>{{payment.monthlyPrice | currency }}</td>
+                @if (payment.duration === 1) {
+                    <td>{{payment.duration}} month</td>
+                }
+                @else{
+                    <td>{{payment.duration}} months</td>
+                }
+                <td>{{payment.startDate | date: 'MMM dd, yyyy'}}</td>
+                
+                <td class="p-0 align-middle text-center" style="background-color: #f8f9fa;">
+
+                    <div class="dropdown w-100 h-100">
+                        <button 
+                            type="button"  
+                            class="btn btn-sm btn-light btn-secondary dropdown-toggle w-100 h-100 border-0 rounded-0"
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false"
+                        >
+                            Options
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li 
+                                class="dropdown-item"
+                                style="cursor: pointer;"
+                                [attr.data-bs-target]="`#editPaymentModal${payment.id}`"
+                                data-bs-toggle="modal"
+                            >
+                                Edit
+                            </li>
+                            <li 
+                                class="dropdown-item" 
+                                style="color: red; cursor: pointer;"
+                                (click)="deletePayment(payment.id)"
+                            >
+                                Delete
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td colspan="5" class="p-0 align-middle">
+                <button 
+                    class="btn btn-sm btn-outline-success"
+                    data-bs-toggle="modal" 
+                    [attr.data-bs-target]="'#addPaymentModal' + studentId()"
+                    type="button" 
+                    class="add-payment-btn btn btn-sm btn-outline-success w-100 h-100 rounded-0 border-0 py-3">
+                    Add payment
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

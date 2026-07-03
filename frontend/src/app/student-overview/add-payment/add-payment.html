@@ -1,0 +1,79 @@
+
+<div 
+    class="modal fade" 
+    tabindex="-1" 
+    [attr.id]="'addPaymentModal' + studentId()"
+    [attr.aria-labelledby]="'add-payment-modal-label-' + studentId" 
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" [attr.id]="'add-payment-modal-label-' + studentId" >
+                    Add a new payment for {{studentName()}}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Show built-in prices -->
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr style="text-align: center;">
+                            <th>Package</th>
+                            <th>Duration</th>
+                            <th>Monthly price</th>
+                            <th>Total price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (subscription of sortedSubscriptions(); track $index) {
+                            <tr>
+                                <td class="p-0 align-middle text-center">
+                                    <button (click)="populate(subscription.id)" type="button" class="btn btn-outline-primary btn-sm custom-button">
+                                        {{subscription.planName}}
+                                    </button>    
+                                </td>
+                                <td>{{subscription.duration}}</td>
+                                <td>{{subscription.monthlyPrice | currency}}</td>
+                                <td>{{subscription.monthlyPrice * subscription.duration | currency}}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <form>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-start-date'">Start date</span>                            
+                        <input 
+                            type="date"
+                            class="form-control"
+                            [value]="startDate()"
+                            (input)="startDate.set(($event.target).value)"
+                        >
+                        
+                        <span class="input-group-text" [attr.id]="'basic-label-duration'">Number of months</span>
+                        <input [formField]="paymentForm.duration" type="number" class="form-control">                        
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-duration'">Price per month ($)</span>
+                        <input [formField]="paymentForm.monthlyPrice" type="number" class="form-control">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-end-date'">End date</span>
+                        <span class="input-group-text">{{endDate() | date: 'MMM dd, yyyy' : '-0600'}}</span>
+
+                        <span class="input-group-text" [attr.id]="'basic-label-total'"><b>Total</b></span>
+                        <span class="input-group-text">{{paymentForm.monthlyPrice().value() * paymentForm.duration().value() | currency}}</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button (click)="savePayment()" data-bs-dismiss="modal" class="btn btn-outline-success">Save payment</button>
+            </div>  
+        </div>
+    </div>
+</div>

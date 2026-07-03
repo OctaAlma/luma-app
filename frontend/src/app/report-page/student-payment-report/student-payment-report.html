@@ -1,0 +1,43 @@
+<div class="input-group mb-3">
+  <span class="input-group-text" id="basic-addon1">Start date</span>
+  <input 
+    type="date" 
+    class="form-control"
+    [value]="startDate()" 
+    (input)="startDate.set($event.target.value)"
+  >
+
+  <span class="input-group-text" id="basic-addon1">End date</span>
+  <input 
+    type="date" 
+    class="form-control"
+    [value]="endDate()" 
+    (input)="endDate.set($event.target.value)"
+  >
+</div>
+
+<table class="table table-bordered table-sm">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">Transaction date</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Duration</th>
+      <th scope="col">Running total</th>
+    </tr>
+  </thead>
+  <tbody>
+  @for (payment of filteredPayments(); track $index) {    
+    <tr>
+      <td>{{payment.postDate | date: 'short' }}</td>
+      <td>{{payment.monthlyPrice * payment.duration | currency }}</td>
+      @if (payment.duration === 1) {
+        <td>{{payment.duration}} month</td>
+      }
+      @else{
+        <td>{{payment.duration}} months</td>
+      }
+      <td>{{runningTotals().at($index) | currency}}</td>
+    </tr>  
+  }
+  </tbody>
+</table>

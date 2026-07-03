@@ -1,0 +1,82 @@
+<app-add-package (packageEmitter)="handleAddPackage($event)"></app-add-package>
+
+ @for (subscription of subscriptions(); track subscription.id) {
+    <app-edit-package 
+        [existingPackage]="subscription"
+        (packageEmitter)="handleEditPackage($event)">
+    </app-edit-package>
+}
+
+
+<h5>Manage Packages</h5>
+<hr class="mt-0 mb-2 border-2 border-top border-secondary" />
+
+<table class="table table-bordered table-sm mt-3">
+    <thead class="table-light">
+        <tr>
+            <th>Package name</th>
+            <th>Duration</th>
+            <th>Monthly price</th>
+            <th>Total price</th>
+            <th>Manage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (subscription of subscriptions(); track subscription.id) {
+
+            <tr>
+                <td>{{subscription.planName}}</td>
+                @if(subscription.duration == 1){
+                    <td>{{subscription.duration}} month</td>
+                }
+                @else{
+                    <td>{{subscription.duration}} months</td>
+                }
+                <td>{{subscription.monthlyPrice | currency}}</td>
+                <td>{{subscription.monthlyPrice * subscription.duration | currency}}</td>
+                
+                <td class="p-0 align-middle text-center" style="background-color: #f8f9fa;">
+
+                    <div class="dropdown w-100 h-100">
+                        <button 
+                            type="button"  
+                            class="btn btn-sm btn-light btn-secondary dropdown-toggle w-100 h-100 border-0 rounded-0"
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false"
+                        >
+                            Options
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li 
+                                class="dropdown-item"
+                                data-bs-toggle="modal" 
+                                [attr.data-bs-target]="`#editPackageModal${subscription.id}`"
+                            >
+                                Edit
+                            </li>
+                            <li 
+                                class="dropdown-item" 
+                                style="color: red"
+                                (click)="deletePackage(subscription.id)"
+                            >
+                                Delete
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td colspan="5" class="p-0 align-middle">
+                <button 
+                    data-bs-toggle="modal" 
+                    data-bs-target='#addPackageModal'
+                    type="button" 
+                    class="add-payment-btn btn btn-sm btn-outline-success w-100 h-100 rounded-0 border-0 py-2">
+                    Add package
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

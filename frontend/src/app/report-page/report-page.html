@@ -1,0 +1,24 @@
+
+<h5>Income report</h5>
+<hr class="mt-0 mb-2 border-2 border-top border-secondary" />
+<app-income-report [students]="students()"></app-income-report>
+
+<br><br>
+
+<h5>Student payment report</h5>
+<hr class="mt-0 mb-2 border-2 border-top border-secondary" />
+
+<div class="input-group mb-3">
+    <label class="input-group-text" for="inputGroupSelect01">Select student</label>
+    <select (change)="onStudentChange($event)" class="form-select" id="studentSelection">
+        <option value="-1">Select a student</option>
+
+        @for (student of sortedStudents(); track student.id) {
+            <option [value]="student.id">{{ student.firstName }} {{ student.lastName }}</option>
+        }
+    </select>
+</div>
+
+<app-student-payment-report [student]="selectedStudent()"></app-student-payment-report>
+
+<br><br>

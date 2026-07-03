@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card">
+            <div class="card-header">
+                Income this past year
+            </div>
+
+            <div class="card-body">
+                <h4 [style.color]="yearlyIncome() < 500 ? '#dc3545' : '#198754'"><b>{{yearlyIncome() | currency:'USD'}}</b></h4>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Income since {{oneYearAgo | date: 'MMM dd, yyyy' : '-0600'}}</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card">
+            <div class="card-header">
+                Total income
+            </div>
+
+            <div class="card-body">
+                <h4 [style.color]="totalIncome() < 500 ? '#dc3545' : '#198754'"><b>{{totalIncome() | currency:'USD'}}</b></h4>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Income since {{firstPaymentDate | date: 'MMM dd, yyyy'}}</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="input-group mb-3">
+  <span class="input-group-text" id="basic-addon1">Start date</span>
+  <input 
+    type="date" 
+    class="form-control"
+    [value]="startDate()" 
+    (input)="startDate.set($event.target.value)"
+  >
+
+  <span class="input-group-text" id="basic-addon1">End date</span>
+  <input 
+    type="date" 
+    class="form-control"
+    [value]="endDate()"
+    (input)="endDate.set($event.target.value)"
+  >
+</div>
+
+<div class="row">
+    <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card">
+            <div class="card-header">
+                Enrollments for range
+            </div>
+
+            <div class="card-body">
+                <h4 [style.color]="enrollmentBetweenDates() == 0 ? '#dc3545' : '#198754'"><b>{{enrollmentBetweenDates()}} 
+                    @if(enrollmentBetweenDates() == 1){
+                        student
+                    }
+                    @else{
+                        students
+                    }
+                </b></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card">
+            <div class="card-header">
+                Income for range
+            </div>
+
+            <div class="card-body">
+                <h4 [style.color]="incomeBetweenDates() < 500 ? '#dc3545' : '#198754'"><b>{{incomeBetweenDates() | currency:'USD'}}</b></h4>
+            </div>
+        </div>
+    </div>
+</div>

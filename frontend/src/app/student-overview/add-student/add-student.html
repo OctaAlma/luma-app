@@ -1,0 +1,37 @@
+<div 
+    class="modal fade" 
+    tabindex="-1" 
+    id="addStudentModal"
+    aria-labelledby='add-student-modal-label' 
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h4 class="modal-header"><b>Add a new student</b></h4>
+            <div class="modal-body">
+                <form>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-name'">Full name</span>                            
+                        <input [formField]="studentForm.firstName" type="text" class="form-control" placeholder="Enter first name">
+                        <input [formField]="studentForm.lastName" type="text" class="form-control" placeholder="Enter last name">
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-email'">Email</span>                            
+                        <input [formField]="studentForm.email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" [attr.id]="'basic-label-phone'">Phone</span>                            
+                        <input [formField]="studentForm.phone" type="tel" class="form-control" id="inputPhone" aria-describedby="emailHelp" placeholder="Enter phone number">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button (click)="addStudent()" data-bs-dismiss="modal" class="btn btn-sm btn-outline-success">Add student</button>
+            </div>
+        </div>
+    </div>
+</div>
