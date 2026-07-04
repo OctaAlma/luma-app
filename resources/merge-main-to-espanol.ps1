@@ -1,3 +1,4 @@
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $Title    = "Confirm Action"
 $Question = "Are you to merge non-HTML changes from branch main to español?"
 $Choices  = "&Y", "&N"
