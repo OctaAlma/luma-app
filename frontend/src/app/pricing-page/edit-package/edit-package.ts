@@ -42,7 +42,7 @@ export class EditPackage implements OnInit{
   public editPackage(){
 
     const planName = this.currPackage().planName;
-    const monthlyPrice = this.monthlyPrice();
+    const monthlyPrice = Math.round(this.monthlyPrice() * 100) / 100;
     const duration = this.currPackage().duration;
 
     // perform form validation and highlight any incorrect forms
@@ -56,5 +56,6 @@ export class EditPackage implements OnInit{
     });
 
     this.currPackage.set(default_new_package_form);
+    this.packageForm().reset(default_new_package_form);
   }
 }

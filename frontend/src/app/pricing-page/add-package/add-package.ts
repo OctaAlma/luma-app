@@ -30,7 +30,7 @@ export class AddPackage {
   public addPackage(){
 
     const planName = this.newPackage().planName;
-    const monthlyPrice = this.monthlyPrice();
+    const monthlyPrice = Math.round(this.monthlyPrice() * 100) / 100;
     const duration = this.newPackage().duration;
 
     // perform form validation and highlight any incorrect forms
@@ -44,5 +44,6 @@ export class AddPackage {
     });
 
     this.newPackage.set(default_new_package_form);
+    this.packageForm().reset(default_new_package_form)
   }
 }
