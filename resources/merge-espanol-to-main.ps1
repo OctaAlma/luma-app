@@ -7,7 +7,7 @@ $Decision = $Host.UI.PromptForChoice($Title, $Question, $Choices, 1)
 
 if ($Decision -eq 0){
     git switch main
-    git merge español --no-commit --no-ff
+    git merge espanol --no-commit --no-ff
 
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Merge paused (conflicts may exist, which is normal). Proceeding to restore HTML files..." -ForegroundColor Yellow

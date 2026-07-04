@@ -7,7 +7,7 @@ $Decision = $Host.UI.PromptForChoice($Title, $Question, $Choices, 1)
 
 if ($Decision -eq 0){
     Write-Host "Merging changes in main into español" -ForegroundColor Yellow
-    git switch español
+    git switch espanol
     git merge main --no-commit --no-ff
 
     if ($LASTEXITCODE -ne 0) {
