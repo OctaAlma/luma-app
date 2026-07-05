@@ -19,6 +19,6 @@ class Payment(models.Model):
     )
 
 class Package(models.Model):
-    planName = models.CharField(max_length=100)
+    planName = models.CharField(max_length=100, blank=True)
     monthlyPrice = models.DecimalField(max_digits=8, decimal_places=2)
     duration = models.IntegerField()
